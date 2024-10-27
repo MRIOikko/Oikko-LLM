@@ -1,146 +1,74 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+const chatLog = document.getElementById('chat-log'),
+    userInput = document.getElementById('user-input'),
+    sendButton = document.getElementById('send-button'),
+    buttonIcon = document.getElementById('button-icon'),
+    info = document.querySelector('.info');
 
-*{
-    font-family: 'Arial', sans-serif;
+sendButton.addEventListener('click', sendMessage);
+userInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+function sendMessage() {
+    const message = userInput.value.trim();
+    if (message === '') {
+        return;
+    }
+    appendMessage('user', message);
+    userInput.value = '';
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'x-rapidapi-key': '96fe58a1edmsh64abdfc6c6d56dap19fd5djsnd234de8c1a26',
+		'x-rapidapi-host': 'chat-gpt26.p.rapidapi.com',
+		'Content-Type': 'application/json',
+        },
+        body: `{"messages":[{"role":"user","content":"${message}"}]}`
+    };
+    fetch('https://chat-gpt26.p.rapidapi.com/', options).then((response) => response.json()).then((response) => {
+        appendMessage('bot', response.choices[0].message.content);
+
+        buttonIcon.classList.add('fa-solid', 'fa-bolt');
+        buttonIcon.classList.remove('fas', 'fa-spinner', 'fa-pulse');
+    }).catch((err) => {
+        if (err.name === 'TypeError') {
+            appendMessage('bot', 'ERROR : Check Your Skibidi API Key! ');
+            buttonIcon.classList.add('fa-solid', 'fa-bolt');
+            buttonIcon.classList.remove('fas', 'fa-spinner', 'fa-pulse');
+        }
+    });
 }
 
-body{
-    margin: 0;
-    padding: 0;
-    background-color: #18406e;
-}
+function appendMessage(sender, message) {
+    info.style.display = "none";
+    buttonIcon.classList.remove('fa-solid', 'fa-bolt');
+    buttonIcon.classList.add('fas', 'fa-spinner', 'fa-pulse');
 
-.header{
-    display: flex;
-    font: sans-serif;
-    align-items: center;
-    justify-content: center;
-    color: #ccc;
-    border-bottom: 1px solid #000000;
-    height: 45px;
-}
+    const messageElement = document.createElement('div');
+    const iconElement = document.createElement('div');
+    const chatElement = document.createElement('div');
+    const icon = document.createElement('i');
 
-.header h1{
-    color: white;
-    font-size: 17px;
-    font-weight: 500;
-}
+    chatElement.classList.add("chat-box");
+    iconElement.classList.add("icon");
+    messageElement.classList.add(sender);
+    messageElement.innerText = message;
 
-.container{
-    max-width: 920px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 0 auto;
-}
+    if (sender === 'user') {
+        icon.classList.add('fa-solid', 'fa-ghost');
+        iconElement.setAttribute('id', 'user-icon');
+    } else {
+        icon.classList.add('fa-solid', 'fa-circle-notch');
+        iconElement.setAttribute('id', 'bot-icon');
+    }
 
-.info{
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 20;
-}
+    iconElement.appendChild(icon);
+    chatElement.appendChild(iconElement);
+    chatElement.appendChild(messageElement);
+    chatLog.appendChild(chatElement);
+    chatLog.scrollTo = chatLog.scrollHeight;
 
-.info a{
-    color: #fff;
-    text-decoration: none;
-    font-size: 25px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.info a:hover{
-    color: #1f263f;
-}
-
-.input-container{
-    background-color: #92d6b1;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    border-top: 1px solid #30d87c;
-    position: sticky;
-    bottom: 0;
-}
-
-#user-input{
-    background-color: #182036;
-    color: #fff;
-    border: none;
-    outline: none;
-    padding: 8px;
-    flex: 9;
-    font-size: 14px;
-    font-weight: 400;
-    border-radius: 5px;
-}
-
-#user-input::placeholder{
-    color: #8e8e8e;
-    font-weight: 400;
-}
-
-#send-button{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4c77af;
-    color: #fff;
-    cursor: pointer;
-    margin-left: 15px;
-    transition: all 0.3s ease;
-}
-
-#send-button:hover{
-    background-color: #19223b;
-}
-
-.chat-container{
-    flex: 1;
-}
-
-.chat-box{
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-}
-
-#chat-log{
-    margin-bottom: 10px;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-#chat-log i{
-    margin-right: 10px;
-    color: #fff;
-    border-radius: 5px;
-}
-
-.bot, .user{
-    display: flex;
-    align-items: flex-start;
-    color: #eee;
-    width: 100%;
-    padding: 15px 7px 15px 10px;
-    border-radius: 6px;
-}
-
-.bot{
-    background-color: #1c2d42;
-}
-
-#chat-log #user-icon i{
-    background-color: #01ff95;
-    padding: 10px 11px;
-}
-
-#chat-log #bot-icon i{
-    background-color: #00b7ff;
-    padding: 10px 8px 11px;
 }
