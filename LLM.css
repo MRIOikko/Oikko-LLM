@@ -1,16 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
 *{
     font-family: 'Arial', sans-serif;
 }
-
 body{
     margin: 0;
     padding: 0;
     background-image: linear-gradient(to right, rgb(51, 84, 177), rgb(17, 204, 101));
 /*rgb(230, 20, 136)*/
 }
-
 .header{
     display: flex;
     font: sans-serif;
@@ -20,13 +17,11 @@ body{
     border-bottom: 3px solid #ebe4e4;
     height: 45px;
 }
-
 .header h1{
     color: white;
     font-size: 22px;
     font-weight: 800;
 }
-
 .container{
     max-width: 920px;
     height: 100vh;
@@ -36,15 +31,17 @@ body{
     margin: 0 auto;
 }
 
+
+
+
+
 .info{
-    
     color: rgb(255, 255, 255);
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 20;
 }
-
 .info a{
     color: #fff;
     text-decoration: none;
@@ -52,10 +49,13 @@ body{
     font-weight: bold;
     transition: all 0.3s ease;
 }
-
 .info a:hover{
     color: #1f263f;
 }
+
+
+
+
 
 .input-container{
     background-image: linear-gradient( #434764, rgb(57, 59, 95));
@@ -67,6 +67,10 @@ body{
     position: sticky;
     bottom: 0;
 }
+
+
+
+
 
 #user-input{
     background-color: #182036;
@@ -85,6 +89,11 @@ body{
     font-weight: 400;
 }
 
+
+
+
+
+
 #send-button{
     display: flex;
     align-items: center;
@@ -95,13 +104,73 @@ body{
     background-color: #4c77af;
     color: #fff;
     cursor: pointer;
-    margin-left: 15px;
+    margin-left: 5px;
     transition: all 0.3s ease;
 }
 
 #send-button:hover{
     background-color: #293b6e;
 }
+
+
+
+@keyframes pulse{
+    0%{
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+.voice-button{
+    color: rgb(255, 255, 255);
+    background-color: #4c77af;
+    cursor: pointer;
+    border-radius: 50%;
+    padding:10px 11px;
+    margin-left: 5px;
+    border: none;
+}
+.voice-button:hover{
+    color: white;
+    background-color:#293b6e ;
+}
+.voice-button.listening{
+    background-color: #46e66e;
+    animation: pulse 1.5s infinite;
+}
+
+
+
+
+
+
+.mute-button{
+    color: white;
+    background-color: #4c77af;
+    cursor: pointer;
+    border-radius: 50%;
+    padding:10px 11px;
+    margin-left: 5px;
+    border: none;
+}
+.mute-button:hover{
+    color: white;
+    background-color: #293b6e;
+}
+.mute-button.muted{
+    background-color: #182036;
+}
+
+
+
+
 
 .chat-container{
     flex: 1;
@@ -151,4 +220,19 @@ body{
 #chat-log #bot-icon i{
     background-color: #00b7ff;
     padding: 10px 8px 11px;
+}
+
+
+
+::-webkit-scrollbar {
+    background: rgb(17, 204, 101);
+    width: 10px;
+}
+::-webkit-scrollbar-thumb{
+    background: #4c77af;
+    border-radius: 10px;
+    
+}
+::-webkit-scrollbar-thumb.hover{
+    background: #293b6e;
 }
