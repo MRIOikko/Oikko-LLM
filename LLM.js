@@ -135,7 +135,7 @@ async function sendMessage() {
     if (message === '') {
         return;
     }
-
+    
 
     appendMessage('user', message);
     userInput.value = '';
@@ -146,17 +146,17 @@ async function sendMessage() {
             method: 'POST',
             headers: {
                 'x-rapidapi-key': '96fe58a1edmsh64abdfc6c6d56dap19fd5djsnd234de8c1a26',
-		'x-rapidapi-host': 'cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com',
+		'x-rapidapi-host': 'chat-gpt26.p.rapidapi.com',
 		'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 messages: [{ role: 'user', content: message }],
-                model: 'gpt-4o'
+                model: 'gpt-3.5-turbo'
             })
         };
 
 
-        const response = await fetch('https://cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com/v1/chat/completions', options);
+        const response = await fetch('https://chat-gpt26.p.rapidapi.com/', options);
         const data = await response.json();
        
         const botResponse = data.choices[0].message.content;
