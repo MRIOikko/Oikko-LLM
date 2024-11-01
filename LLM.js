@@ -145,18 +145,16 @@ async function sendMessage() {
         const options = {
             method: 'POST',
             headers: {
-                'x-rapidapi-key': '96fe58a1edmsh64abdfc6c6d56dap19fd5djsnd234de8c1a26',
-		'x-rapidapi-host': 'chat-gpt26.p.rapidapi.com',
-		'Content-Type': 'application/json'
+                
             },
             body: JSON.stringify({
                 messages: [{ role: 'user', content: message }],
-                model: 'gpt-3.5-turbo'
+                model: 
             })
         };
 
 
-        const response = await fetch('https://chat-gpt26.p.rapidapi.com/', options);
+        const response = await fetch(, options);
         const data = await response.json();
        
         const botResponse = data.choices[0].message.content;
